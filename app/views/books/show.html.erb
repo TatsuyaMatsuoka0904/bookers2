@@ -1,0 +1,53 @@
+<!--saccses messsage?入れとくとEr消える-->
+<p id="notice"><%if flash[:notice] %>
+  <%= flash[:notice]  %>
+<% end %></p>
+
+
+<!--c、r、cmd3-->
+<div class="container">
+  <div class="row">
+<div class="col-md-3">
+    <%= render "layouts/form", user: @user %>
+    <%= render "layouts/create", book: @book %>
+</div>
+    <!--.container .row .col-md-8.offset-md-1-->
+<div class="col-md-8 offset-md-1">
+  <h2>Book detail</h2>
+  <table class="table">
+    
+    <tr>
+    <td>
+    <%= link_to user_path(@showbook.user) do %>
+    <%= attachment_image_tag  @showbook.user, :profile_image, size: "50x50", fallback: "no_image.jpg" %><br>
+    <%= @showbook.user.name %></br>
+    <% end %>
+    </td>
+    
+    <td>
+     <%= link_to book_path(@showbook) do %>
+     <%= @showbook.title %>
+     <% end %>
+    </td>
+    
+    <td>
+     <%= @showbook.body %>
+    </td>
+    
+    <td>
+     <%if @showbook.user.id == current_user.id  %>
+     <%= link_to "Edit", edit_book_path(@showbook), class:"btn btn-sm btn-success" %>
+     <% end %>
+    </td>
+    
+    <td><!--https://qiita.com/iverson3kobe0824/items/3baa1d57843fbde6cd19-->
+     <%if @showbook.user.id == current_user.id  %>
+     <%= link_to "Destroy", book_path(@showbook), method: :delete, data: { confirm: "削除しますか？" }, class:"btn btn-sm btn-danger" %>
+     <% end %>
+    </td>
+    </tr>
+    
+      </table>
+    </div>
+  </div>
+</div>
